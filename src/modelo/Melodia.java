@@ -48,6 +48,14 @@ public class Melodia {
                 '}';
     }
 
+    public void setCompositor(String compositor){
+        this.compositor=compositor;
+    }
+
+    public String getCompositor(){
+        return compositor;
+    }
+
     public String getFormato() {
         return formato;
     }
@@ -56,20 +64,50 @@ public class Melodia {
         this.formato = formato;
     }
 
+    public void setId(int id){
+        this.id=id;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setNombre(String nombre){
+        this.nombre=nombre;
     }
 
     public String getNombre() {
         return nombre;
     }
+    public void setGenero(String genero){
+        this.genero=genero;
+    }
 
     public String getGenero() {
         return genero;
     }
+    public void setAnio(int anio){
+            this.anio=anio;
+    }
 
     public int getAnio() {
         return anio;
+    }
+
+    public void setCantante(String cantante){
+        this.cantante=cantante;
+    }
+
+    public String getCantante(){
+        return cantante;
+    }
+
+    public void setPrecio(Double precio){
+        this.precio=precio;
+    }
+
+    public double getPrecio(){
+        return precio;
     }
 
     @Override
@@ -77,11 +115,11 @@ public class Melodia {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Melodia mel = (Melodia) obj;
-        return this.id == mel.id || (nombre != null && nombre.equalsIgnoreCase(mel.nombre));
+        return this.anio==mel.anio && (this.cantante != null && this.cantante.equalsIgnoreCase(mel.cantante));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre);
+        return Objects.hash(cantante!=null ? cantante.toLowerCase() :null,anio);
     }
 }
