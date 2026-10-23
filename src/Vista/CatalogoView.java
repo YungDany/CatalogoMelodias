@@ -6,17 +6,22 @@ import java.util.Scanner;
 public class CatalogoView {
     private Scanner leerNumeros = new Scanner(System.in);
     private Scanner leerCadenas = new Scanner(System.in);
-    private String[] formatos = {"mp3", "oog", "wav"};
+    private String[] formatos = {"mp3", "ogg", "wav","flac"};
 
 
     public int mostrarMenu() {
-        System.out.println("\n--Menu Catalogo de melodias--");
-        System.out.println("1.Registrar Melodia");
-        System.out.println("2.Mostrar todo el catalogo");
-        System.out.println("3.Salir");
-        System.out.println("Elige una opcion: ");
+        System.out.println("\n Menu Catalogo de melodias");
+        System.out.println("1. Registrar Melodía");
+        System.out.println("2. Mostrar todo el catálogo");
+        System.out.println("3. Buscar melodía por Nombre");
+        System.out.println("4. Eliminar melodía por ID");
+        System.out.println("5. Ver valor total de la colección");
+        System.out.println("6. Ver todos los géneros");
+        System.out.println("7. Buscar canciones por Año");
+        System.out.println("8. Ordenar catálogo (Precio / Año / Cantante)");
+        System.out.println("9. Salir");
+        System.out.print("Elige una opción: ");
         return leerNumeros.nextInt();
-
     }
 
     public String leerNombreMelodia() {
@@ -35,46 +40,43 @@ public class CatalogoView {
     }
 
     public int leerAnioMelodia() {
-        System.out.println("Ingresa anio de melodia");
+        System.out.println("Ingresa año de melodia");
         return leerNumeros.nextInt();
     }
 
-    public void mostrarCatalogo(String Catalogo) {
-        System.out.println(Catalogo);
-    }
-
-    public void mostrarCadena(String Cadena) {
-        System.out.println(Cadena);
-    }
-
-    //leer y regresar  el precio
-    public double leerPrecioMelodia() {
-        System.out.println("Ingresa Precio de melodia");
+    public double leerPrecioMelodia(){
+        System.out.println("Ingrese el precio: ");
         return leerNumeros.nextDouble();
     }
 
-    public String mostrarObtenerFormato() {
-        int numero = 1;
-        int Seleccion;
-        for (String g : formatos) {
-            System.out.println(numero + ".Formato: " + g);
-            numero++;
-        }
-        System.out.println("Ingresa el numero del formato");
-        numero = leerNumeros.nextInt();
-        return formatos[numero - 1].toString();
+    public int leerId(){
+        System.out.println("Ingrese el ID de la melodía: ");
+        return leerNumeros.nextInt();
     }
 
-    public String mostrarObtenerGenero() {
-        Genero[] generos = Genero.values();
-        int numero = 1;
-        int seleccion;
-        for (Genero g : Genero.values()) {
-            System.out.println(numero + ".Genero " + g);
-            numero++;
+    public String mostrarObtenerFormato(){
+        System.out.println("Formatos disponibles ");
+        for(int i=0;i<formatos.length; i++){
+            System.out.println((i+1) + ". " + formatos[i]);
         }
-        System.out.println("INRESA EL NUMERO DE GENERO");
-        numero = leerNumeros.nextInt();
-        return generos[numero - 1].toString();
+        System.out.println("Ingrese el número del formato: ");
+        int seleccion=leerNumeros.nextInt();
+        if(seleccion>=1&&seleccion<=formatos.length){
+            return formatos[seleccion-1];
+        }
+        return "mp3";
+    }
+
+    public String leerGenero(){
+        System.out.println("Ingrese el género musical: ");
+        return leerCadenas.nextLine();
+    }
+
+    public void mostrarCatalogo(String catalogo ){
+        System.out.println(catalogo);
+    }
+
+    public void mostrarCadena(String cadena ){
+        System.out.println(cadena);
     }
 }
