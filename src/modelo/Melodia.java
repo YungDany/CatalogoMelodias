@@ -115,7 +115,11 @@ public class Melodia {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Melodia mel = (Melodia) obj;
-        return this.anio==mel.anio && (this.cantante != null && this.cantante.equalsIgnoreCase(mel.cantante));
+
+        if(this.cantante==null || mel.cantante==null){
+            return false;
+        }
+        return this.anio == mel.anio && this.cantante.trim().equalsIgnoreCase(mel.cantante.trim());
     }
 
     @Override

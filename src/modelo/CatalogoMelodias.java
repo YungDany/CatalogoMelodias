@@ -3,6 +3,7 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -18,7 +19,7 @@ public class CatalogoMelodias {
             }
         }
         canciones.add(obj);
-        return false;
+        return true;
     }
 
     public boolean removerMelodia(int id){
@@ -76,10 +77,8 @@ public class CatalogoMelodias {
         return canciones.stream().filter(m->m.getCompositor().equalsIgnoreCase(compositor)).collect(Collectors.toCollection(ArrayList::new));
 
     }
-
-    public ArrayList<Melodia> melodiasPorCantante(String cantante){
-        return canciones.stream().filter(m->m.getCantante().equalsIgnoreCase(cantante)).collect(Collectors.toCollection(ArrayList::new));
-
+    public ArrayList<Melodia> melodiasPorCantante(String cantante) {
+        return canciones.stream().filter(m -> m.getCantante() != null && m.getCantante().equalsIgnoreCase(cantante)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void ordenarMelodiasPorPrecio(){
@@ -103,6 +102,36 @@ public class CatalogoMelodias {
         }
         return sb.toString();
     }
+
+    // Contar cuántos cantantes únicos existen en el catálogo
+    public int contarCantantesUnicos() {
+        return (int) canciones.stream()
+                .map(Melodia::getCantante)
+                .filter(c -> c != null)
+                .map(String::trim)
+                .map(String::toUpperCase)
+                .distinct()
+                .count();
+    }
+
+    // Generar el reporte de distribución por formato de audio
+    public String reportePorFormato() {
+        if (canciones.isEmpty()) {
+            return "No hay canciones registradas en el catálogo.";
+        }
+
+        Map<String, Long> conteoFormatos = canciones.stream()
+                .filter(m -> m.getFormato() != null)
+                .collect(Collectors.groupingBy(m -> m.getFormato().toLowerCase(), Collectors.counting()));
+
+        StringBuilder sb = new StringBuilder(" Canciones por Formato \n");
+        conteoFormatos.forEach((formato, cantidad) ->
+                sb.append("Formato: ").append(formato).append(" -> ").append(cantidad).append(" melodía(s)\n")
+        );
+        return sb.toString();
+    }
+
+
 
 
 
